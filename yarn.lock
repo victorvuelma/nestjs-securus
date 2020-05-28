@@ -591,6 +591,16 @@
     consola "^2.3.0"
     node-fetch "^2.3.0"
 
+"@prisma/cli@^2.0.0-beta.6":
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@prisma/cli/-/cli-2.0.0-beta.6.tgz#fec992901c20b0b421b5de9ba02f27ec216209c5"
+  integrity sha512-qawcjLN5c26T+IVZij5WjQocfsV6b1BtJIL3CqMQfMkDCNGo/zXsu+NB+uyZ+QRqctEuJQ36lemnY44+k6L8XA==
+
+"@prisma/client@^2.0.0-beta.6":
+  version "2.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-beta.6.tgz#781eb8900ed265c6d7d35f1b5dd9b19f91440b40"
+  integrity sha512-08AokCpMzL6SdxQVfShD7937t+sHntr6FJBpVKq5E/UFPVh0B2lUwU9YrA/MIAdRpGMg1wA+rdwRivtFIs5Law==
+
 "@schematics/schematics@0.901.4":
   version "0.901.4"
   resolved "https://registry.yarnpkg.com/@schematics/schematics/-/schematics-0.901.4.tgz#839e1052995a04b917f6eca82ceea69a02f5e246"
