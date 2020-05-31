@@ -1,0 +1,64 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateEnum",
+      "enum": "Gender",
+      "values": [
+        "MALE",
+        "FEMALE",
+        "OTHER"
+      ]
+    },
+    {
+      "tag": "CreateField",
+      "model": "Customer",
+      "field": "password",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Customer",
+      "field": "gender",
+      "type": "Gender",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Customer",
+          "field": "gender"
+        },
+        "directive": "default"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Customer",
+          "field": "gender"
+        },
+        "directive": "default"
+      },
+      "argument": "",
+      "value": "OTHER"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Customer",
+          "field": "updatedAt"
+        },
+        "directive": "updatedAt"
+      }
+    }
+  ]
+}
