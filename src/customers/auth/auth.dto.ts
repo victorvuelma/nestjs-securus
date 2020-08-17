@@ -1,7 +1,7 @@
 import { IsNotEmpty, MinLength } from 'class-validator';
 import { IsCpf } from 'src/helpers/validation.helper';
 
-export class LoginPayload {
+export class AuthLoginDto {
   @IsNotEmpty()
   @IsCpf()
   cpf: string;

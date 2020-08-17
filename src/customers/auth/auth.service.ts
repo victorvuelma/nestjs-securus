@@ -1,22 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { compare } from 'bcrypt';
 
-import { LoginPayload } from './auth.payload';
 import { CustomersService } from '../customers.service';
 import { CustomerFindDto } from '../customers.dto';
+import { AuthLoginDto } from './auth.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private _customerService: CustomersService) {}
+  constructor(private _prismaService: PrismaService) {}
 
-  async login(loginPayload: LoginPayload) {
-    const { cpf, password } = loginPayload;
+  async login(authLogin: AuthLoginDto) {
+    const { cpf, password } = authLogin;
 
     const findDto = new CustomerFindDto();
     findDto.cpf = cpf;
 
-    const [customer] = await this._customerService.find(findDto);
-
+    const customer = await this._prismaService.customer.findOne({
+      where: findDto,
+    });
     if (!customer) {
       throw Error('Customer not found.');
     }
