@@ -10,7 +10,6 @@ export class CustomersService {
   async find(filter?: CustomerFindDto): Promise<Customer[]> {
     const customers = await this._prismaService.customer.findMany({
       where: filter,
-      first: 1,
     });
 
     return customers;
