@@ -1,0 +1,10 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "deno.enable": false,
+  "standard.autoFixOnSave": false
+}
