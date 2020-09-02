@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
 import { compare } from 'bcrypt';
 
-import { CustomersService } from '../customers.service';
-import { CustomerFindDto } from '../customers.dto';
 import { AuthLoginDto } from './auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CustomerFindDto } from 'src/customers/customers.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private _prismaService: PrismaService) {}
+  constructor(private _prismaService: PrismaService, private _jwtService: JwtService) {}
 
   async login(authLogin: AuthLoginDto) {
     const { cpf, password } = authLogin;
@@ -27,7 +28,10 @@ export class AuthService {
     if (!passwordMatches) {
       throw Error('Invalid password.');
     }
+    delete customer.password;
 
-    return true;
+    const token = await this._jwtService.signAsync(customer);
+
+    return {token, customer};
   }
 }

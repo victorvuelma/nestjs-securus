@@ -15,10 +15,15 @@ export class AuthController {
   @Post('')
   async login(@Body() authLogin: AuthLoginDto) {
     try {
-      const token = await this._authService.login(authLogin);
+      const {token, customer} = await this._authService.login(authLogin);
 
-      return token;
+      return {
+        access_token: token,
+        customer
+      };
     } catch (error) {
+      console.error(error);
+
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
