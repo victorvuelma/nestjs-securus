@@ -23,7 +23,7 @@ export class AuthController {
       };
     } catch (error) {
       console.error(error);
-
+      
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
