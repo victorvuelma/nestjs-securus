@@ -6,7 +6,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthLoginDto, AuthCustomerInit } from './auth.dto';
+import { AuthLoginDto, AuthCustomerInit, AuthCustomerCheck } from './auth.dto';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
@@ -42,6 +42,31 @@ export class AuthController {
       const customerData = await this._authService.customerInit(customerLogin);
 
       return customerData;
+    } catch (error) {
+      console.error(error);
+
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'User not found.',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+  }
+
+  @HttpCode(HttpStatus.CREATED)
+  @Post('customers/check')
+  async customerCheck(@Body() customerCheck: AuthCustomerCheck) {
+    try {
+      const { token, customer } = await this._authService.customerCheck(
+        customerCheck,
+      );
+
+      return {
+        access_token: token,
+        customer,
+      };
     } catch (error) {
       console.error(error);
 

@@ -3,9 +3,11 @@ import { JwtService } from '@nestjs/jwt';
 
 import { compare } from 'bcrypt';
 
-import { AuthLoginDto, AuthCustomerInit } from './auth.dto';
+import { AuthLoginDto, AuthCustomerInit, AuthCustomerCheck } from './auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CustomerFindDto } from 'src/customers/customers.dto';
+import { isSameDay } from 'date-fns';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -58,5 +60,28 @@ export class AuthService {
       lastname,
       date: new Date(),
     };
+  }
+
+  async customerCheck(customerCheck: AuthCustomerCheck) {
+    const { cpf, birthDate } = customerCheck;
+
+    const findDto = new CustomerFindDto();
+    findDto.cpf = cpf;
+
+    const customer = await this._prismaService.customer.findOne({
+      where: findDto,
+    });
+    if (!customer) {
+      throw Error('Customer not found.');
+    }
+    if (!isSameDay(customer.birthDate, birthDate)) {
+      throw Error('Invalid birth date provided.');
+    }
+
+    delete customer.password;
+
+    const token = await this._jwtService.signAsync(customer);
+
+    return { token, customer };
   }
 }
