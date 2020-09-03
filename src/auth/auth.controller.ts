@@ -3,6 +3,7 @@ import {
   Post,
   Body,
   HttpException,
+  HttpCode,
   HttpStatus,
 } from '@nestjs/common';
 import { AuthLoginDto, AuthCustomerInit } from './auth.dto';
@@ -34,6 +35,7 @@ export class AuthController {
     }
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('customers/init')
   async customerInit(@Body() customerLogin: AuthCustomerInit) {
     try {
