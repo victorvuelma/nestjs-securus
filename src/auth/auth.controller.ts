@@ -5,29 +5,48 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthLoginDto } from './auth.dto';
+import { AuthLoginDto, AuthCustomerInit } from './auth.dto';
 import { AuthService } from './auth.service';
 
-@Controller('customers/auth')
+@Controller('auth')
 export class AuthController {
   constructor(private _authService: AuthService) {}
 
-  @Post('')
-  async login(@Body() authLogin: AuthLoginDto) {
+  @Post('customers/login')
+  async customerLogin(@Body() authLogin: AuthLoginDto) {
     try {
-      const {token, customer} = await this._authService.login(authLogin);
+      const { token, customer } = await this._authService.login(authLogin);
 
       return {
         access_token: token,
-        customer
+        customer,
       };
     } catch (error) {
       console.error(error);
-      
+
       throw new HttpException(
         {
           status: HttpStatus.FORBIDDEN,
           error: 'Invalid user or password.',
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+  }
+
+  @Post('customers/init')
+  async customerInit(@Body() customerLogin: AuthCustomerInit) {
+    try {
+      const customerData = await this._authService.customerInit(customerLogin);
+
+      return customerData;
+    } catch (error) {
+      console.error(error);
+
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: 'User not found.',
         },
         HttpStatus.FORBIDDEN,
       );

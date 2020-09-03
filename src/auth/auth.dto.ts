@@ -10,3 +10,8 @@ export class AuthLoginDto {
   @MinLength(6)
   password: string;
 }
+
+export class AuthCustomerInit {
+  @IsCpf()
+  cpf: string;
+}
