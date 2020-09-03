@@ -1,11 +1,4 @@
-import {
-  IsNotEmpty,
-  MinLength,
-  MaxDate,
-  IsDate,
-  IsDateString,
-  IsDateString,
-} from 'class-validator';
+import { IsNotEmpty, MinLength, MaxDate, IsDateString } from 'class-validator';
 import { endOfDay } from 'date-fns';
 
 import { IsCpf } from 'src/helpers/validation.helper';
