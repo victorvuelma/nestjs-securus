@@ -1,4 +1,11 @@
-import { IsNotEmpty, MinLength, MaxDate, IsDate } from 'class-validator';
+import {
+  IsNotEmpty,
+  MinLength,
+  MaxDate,
+  IsDate,
+  IsDateString,
+  IsDateString,
+} from 'class-validator';
 import { endOfDay } from 'date-fns';
 
 import { IsCpf } from 'src/helpers/validation.helper';
@@ -25,7 +32,7 @@ export class AuthCustomerCheck {
   cpf: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   @MaxDate(endOfDay(new Date()))
   birthDate: Date;
 }
