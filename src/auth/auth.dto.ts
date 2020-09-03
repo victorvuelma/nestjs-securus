@@ -26,5 +26,5 @@ export class AuthCustomerCheck {
 
   @IsNotEmpty()
   @IsDateString()
-  birthDate: Date;
+  birthDate: string;
 }

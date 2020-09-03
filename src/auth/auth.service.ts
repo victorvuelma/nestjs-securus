@@ -6,8 +6,7 @@ import { compare } from 'bcrypt';
 import { AuthLoginDto, AuthCustomerInit, AuthCustomerCheck } from './auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CustomerFindDto } from 'src/customers/customers.dto';
-import { isSameDay } from 'date-fns';
-import { throwError } from 'rxjs';
+import { isSameDay, parseISO } from 'date-fns';
 
 @Injectable()
 export class AuthService {
@@ -74,7 +73,7 @@ export class AuthService {
     if (!customer) {
       throw Error('Customer not found.');
     }
-    if (!isSameDay(customer.birthDate, birthDate)) {
+    if (!isSameDay(customer.birthDate, parseISO(birthDate))) {
       throw Error('Invalid birth date provided.');
     }
 
