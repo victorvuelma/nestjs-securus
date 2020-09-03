@@ -11,9 +11,8 @@ import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-
   dotenv.config();
-  Sentry.init({dsn: process.env.SENTRY_DSN});
+  Sentry.init({ dsn: process.env.SENTRY_DSN });
 
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
@@ -24,6 +23,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
 
-  await app.listen(process.env.PORT ? Number(process.env.PORT) : 3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
