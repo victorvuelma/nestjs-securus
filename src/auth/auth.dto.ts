@@ -26,6 +26,5 @@ export class AuthCustomerCheck {
 
   @IsNotEmpty()
   @IsDateString()
-  @MaxDate(endOfDay(new Date()))
   birthDate: Date;
 }
