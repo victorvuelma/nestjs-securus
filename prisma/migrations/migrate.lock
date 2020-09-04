@@ -3,3 +3,5 @@
 20200527230710-init
 20200531000805-add-fields-to-customer
 20200531001637-create-user
+20200904010322-create-customer-documents-table
+20200904011119-create-vehicle-structure

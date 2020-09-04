@@ -1,0 +1,55 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum DocumentType {
+  RG
+  CNH
+}
+
+model Customer {
+  id                 Int       @default(autoincrement()) @id
+  cpf                String    @unique
+  email              String    @unique
+  password           String
+  name               String
+  lastname           String?
+  birthDate          DateTime
+  gender             Gender    @default(OTHER)
+  phone              String?
+  cellPhone          String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
+  documents          CustomerDocuments[]
+}
+
+model CustomerDocuments {
+  id                 Int       @default(autoincrement()) @id
+  type               DocumentType
+  value              String
+  customer           Customer  @relation(fields: [customerId], references: [id])
+  customerId         Int
+
+  @@unique([type, customerId])
+}
+
+model User {
+  id                 Int       @default(autoincrement()) @id
+  cpf                String    @unique
+  email              String    @unique
+  password           String
+  fullName           String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
+}
