@@ -34,7 +34,10 @@ export class AuthService {
     }
     delete customer.password;
 
-    const token = await this._jwtService.signAsync(customer);
+    const token = await this._jwtService.signAsync({
+      ...customer,
+      tokenType: 1,
+    });
 
     return { token, customer };
   }
@@ -79,7 +82,10 @@ export class AuthService {
 
     delete customer.password;
 
-    const token = await this._jwtService.signAsync(customer);
+    const token = await this._jwtService.signAsync({
+      ...customer,
+      tokenType: 1,
+    });
 
     return { token, customer };
   }

@@ -13,6 +13,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    return { userId: payload.sub, username: payload.username };
+    console.log(payload);
+
+    const tokenData = {};
+
+    if (payload.tokenType === 1) {
+      tokenData['customer'] = payload;
+    }
+
+    return tokenData;
   }
 }
